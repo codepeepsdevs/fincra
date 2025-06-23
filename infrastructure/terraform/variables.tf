@@ -15,27 +15,17 @@ variable "env" {
     default = "prod"
 }
 
-variable "backend_repo_url" {
+variable "repo_url" {
     type = string
-    description = "Backend repository URL"
+    description = "Repository URL"
 }
 
-variable "backend_repo_branch" {
+variable "repo_branch" {
     type = string
-    description = "Backend repository branch"
+    description = "Repository branch"
     default = "main"
 }
-
-variable "frontend_repo_url" {
-    type = string
-    description = "Frontend repository URL"
-}
-
-variable "frontend_repo_branch" {
-    type = string
-    description = "Frontend repository branch"
-    default = "main"
-}
+ 
 
 variable "frontend_env" {
     type = map(string)
