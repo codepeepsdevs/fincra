@@ -12,15 +12,31 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "Saira-thin";
+  src: url("/fonts/Saira/Saira-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Saira-light";
+  src: url("/fonts/Saira/Saira-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Saira-regular";
+  src: url("/fonts/Saira/Saira-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Saira-medium";
+  src: url("/fonts/Saira/Saira-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Saira-bold";
+  src: url("/fonts/Saira/Saira-Bold.ttf") format("truetype");
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Saira-regular", sans-serif !important;
 }
