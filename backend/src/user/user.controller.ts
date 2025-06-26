@@ -13,6 +13,21 @@ export class UserController {
     return this.userService.getMe(user.id);
   }
 
+  @Get('accounts')
+  getAccounts(@Req() req: Request) {
+    const user = req['user'] as UserSerializer;
+    return this.userService.getUserAccounts(user.id);
+  }
+
+  @Get('conversion-chart-data')
+  getConversionStats(
+    @Req() req: Request,
+    @Query('period') period: string = '7d',
+  ) {
+    const user = req['user'] as UserSerializer;
+    return this.userService.getConversionStats(user.id, period);
+  }
+
   @Get('conversion-history')
   getConversionHistory(
     @Req() req: Request,

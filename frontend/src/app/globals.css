@@ -12,6 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-auth-bg: #f5f4f7;
+  --color-primary: #7535fd;
+  --color-secondary: #f5f4f7;
+}
+
 @font-face {
   font-family: "Saira-thin";
   src: url("/fonts/Saira/Saira-Thin.ttf") format("truetype");

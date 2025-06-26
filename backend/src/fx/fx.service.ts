@@ -85,21 +85,19 @@ export class FxService {
         where: { id: toAccount.id },
         data: { balance: { increment: convertedAmount } },
       }),
+      this.prisma.conversionHistory.create({
+        data: {
+          userId: user.id,
+          fromCurrency: from,
+          toCurrency: to,
+          rate,
+          amount,
+        },
+      }),
     ]);
 
-    // create a conversion history
-    await this.prisma.conversionHistory.create({
-      data: {
-        userId: user.id,
-        fromCurrency: from,
-        toCurrency: to,
-        rate,
-        amount,
-      },
-    });
-
     return {
-      message: 'Amount converted successfully',
+      message: 'Conversion successful',
       statusCode: HttpStatus.OK,
     };
   }

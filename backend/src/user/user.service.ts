@@ -30,7 +30,11 @@ export class UserService {
       },
     });
 
-    return accounts;
+    return {
+      message: 'Accounts fetched successfully',
+      statusCode: HttpStatus.OK,
+      data: accounts,
+    };
   }
 
   async createBulkAccount(payload: { userId: number; currency: Currency }[]) {
@@ -76,19 +80,84 @@ export class UserService {
       };
     }
 
-    const conversionHistory = await this.prisma.conversionHistory.findMany({
-      where,
-      skip: Number(skip),
-      take: Number(take),
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    const [conversionHistory, totalConversionHistory] = await Promise.all([
+      this.prisma.conversionHistory.findMany({
+        where,
+        skip: Number(skip),
+        take: Number(take),
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      this.prisma.conversionHistory.count({
+        where,
+      }),
+    ]);
 
     return {
       message: 'Conversion history fetched successfully',
       statusCode: HttpStatus.OK,
-      data: conversionHistory,
+      data: {
+        conversionHistory,
+        pagination: {
+          page,
+          limit,
+          totalPages: Math.ceil(totalConversionHistory / limit),
+          totalItems: totalConversionHistory,
+        },
+      },
+    };
+  }
+
+  async getConversionStats(userId: number, period: string) {
+    const { startDate, currentDate } = this.parsePeriod(period);
+
+    // Get conversion history within the specified period
+    const conversionHistory = await this.prisma.conversionHistory.findMany({
+      where: {
+        userId,
+        createdAt: {
+          gte: startDate.toDate(),
+          lte: currentDate.toDate(),
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    // Group conversions by date and aggregate by currency
+    const conversionMap = new Map();
+
+    conversionHistory.forEach((conversion) => {
+      const dateKey = moment(conversion.createdAt).format('YYYY-MM-DD');
+
+      if (!conversionMap.has(dateKey)) {
+        conversionMap.set(dateKey, {
+          date: dateKey,
+          USD: 0,
+          EUR: 0,
+          GBP: 0,
+          NGN: 0,
+        });
+      }
+
+      const dayData = conversionMap.get(dateKey);
+
+      // Add the converted amount to the target currency
+      const convertedAmount = conversion.amount * conversion.rate;
+      dayData[conversion.toCurrency] += convertedAmount;
+    });
+
+    // Convert map to array and sort by date
+    const conversionData = Array.from(conversionMap.values()).sort((a, b) => {
+      return moment(a.date).diff(moment(b.date));
+    });
+
+    return {
+      message: 'Conversion stats fetched successfully',
+      statusCode: HttpStatus.OK,
+      data: conversionData,
     };
   }
 
@@ -113,103 +182,6 @@ export class UserService {
     };
   }
 
-  // private generateTrendData = (rsvps: any[], period: string = '7d') => {
-  //   const trendMap = new Map();
-
-  //   // Parse period parameter (e.g., "7d", "1m", "3m", "1y")
-  //   const periodMatch = period.match(/^(\d+)([dmy])$/);
-  //   if (!periodMatch) {
-  //     throw new Error(
-  //       "Invalid period format. Use format like '7d', '1m', '3m', '1y'",
-  //     );
-  //   }
-
-  //   const amount = parseInt(periodMatch[1]);
-  //   const unit = periodMatch[2];
-
-  //   console.log('amount', amount);
-  //   console.log('unit', unit);
-  //   let startDate: moment.Moment;
-  //   let interval: string;
-  //   let dateFormat: string;
-
-  //   switch (unit) {
-  //     case 'd':
-  //       startDate = moment().subtract(amount, 'days');
-  //       interval = 'days';
-  //       dateFormat = 'YYYY-MM-DD';
-  //       break;
-  //     case 'm':
-  //       startDate = moment().subtract(amount, 'months');
-  //       interval = 'months';
-  //       dateFormat = 'YYYY-MM';
-  //       break;
-  //     case 'y':
-  //       startDate = moment().subtract(amount, 'years');
-  //       interval = 'years';
-  //       dateFormat = 'YYYY';
-  //       break;
-  //     default:
-  //       throw new Error(
-  //         "Invalid time unit. Use 'd' for days, 'm' for months, 'y' for years",
-  //       );
-  //   }
-
-  //   // Initialize trend data for the specified period
-  //   const currentDate = moment();
-  //   let current = startDate.clone();
-
-  //   while (current.isSameOrBefore(currentDate)) {
-  //     const dateKey = current.format(dateFormat);
-  //     trendMap.set(dateKey, {
-  //       date: dateKey,
-  //       going: 0,
-  //       interested: 0,
-  //       not_attending: 0,
-  //     });
-
-  //     // Move to next interval
-  //     current.add(1, interval as any);
-  //   }
-
-  //   // Count RSVPs by date
-  //   rsvps.forEach((rsvp) => {
-  //     const rsvpDate = moment(rsvp.created_at);
-  //     let dateKey: string;
-
-  //     // Format date based on interval
-  //     switch (interval) {
-  //       case 'days':
-  //         dateKey = rsvpDate.format('YYYY-MM-DD');
-  //         break;
-  //       case 'months':
-  //         dateKey = rsvpDate.format('YYYY-MM');
-  //         break;
-  //       case 'years':
-  //         dateKey = rsvpDate.format('YYYY');
-  //         break;
-  //       default:
-  //         dateKey = rsvpDate.format('YYYY-MM-DD');
-  //     }
-
-  //     if (trendMap.has(dateKey)) {
-  //       const current = trendMap.get(dateKey);
-  //       if (rsvp.rsvp_type === 'attending') {
-  //         current.going += 1;
-  //       } else if (rsvp.rsvp_type === 'interested') {
-  //         current.interested += 1;
-  //       } else if (rsvp.rsvp_type === 'not_attending') {
-  //         current.not_attending += 1;
-  //       }
-  //     }
-  //   });
-
-  //   return Array.from(trendMap.values()).sort((a, b) => {
-  //     const dateA = moment(a.date, dateFormat);
-  //     const dateB = moment(b.date, dateFormat);
-  //     return dateA.diff(dateB);
-  //   });
-  // };
   private parsePeriod(period: string) {
     const periodMatch = period.match(/^(\d+)([dmy])$/);
     if (!periodMatch) {
@@ -222,24 +194,16 @@ export class UserService {
     const unit = periodMatch[2];
 
     let startDate: moment.Moment;
-    let interval: string;
-    let dateFormat: string;
 
     switch (unit) {
       case 'd':
         startDate = moment().subtract(amount, 'days');
-        interval = 'days';
-        dateFormat = 'YYYY-MM-DD';
         break;
       case 'm':
         startDate = moment().subtract(amount, 'months');
-        interval = 'months';
-        dateFormat = 'YYYY-MM';
         break;
       case 'y':
         startDate = moment().subtract(amount, 'years');
-        interval = 'years';
-        dateFormat = 'YYYY';
         break;
       default:
         throw new Error(
@@ -249,8 +213,6 @@ export class UserService {
 
     return {
       startDate,
-      interval,
-      dateFormat,
       currentDate: moment(),
     };
   }
