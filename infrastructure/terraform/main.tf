@@ -24,6 +24,10 @@ resource "railway_service" "backend" {
   root_directory = "backend"
   config_path = "backend/railway.json"
   source_repo_branch  = var.repo_branch
+
+  depends_on = [
+    railway_environment.fincra
+  ]
 }
 
 
@@ -35,4 +39,8 @@ resource "railway_service" "frontend" {
   config_path = "frontend/railway.json"
   source_repo_branch  = var.repo_branch
 
+
+  depends_on = [
+    railway_environment.fincra
+  ]
 }
