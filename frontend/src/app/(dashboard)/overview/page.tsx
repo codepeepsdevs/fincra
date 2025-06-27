@@ -20,6 +20,7 @@ import TableSkeleton from "@/components/skeletons/CustomTableSkeleton";
 import { useRouter } from "next/navigation";
 import { useGetFxConversionHistory } from "@/api/user/user.queries";
 import { IConversionHistory } from "@/constants/types";
+import { formatDateTime } from "@/utils/parser";
 
 ChartJS.register(
   CategoryScale,
@@ -37,15 +38,7 @@ const columns: ColumnDef<IConversionHistory>[] = [
     header: "Date/Time",
     cell: ({ getValue }) => {
       const value = getValue() as string;
-      const date = new Date(value.replace(" ", "T"));
-      return date.toLocaleString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
+      return formatDateTime(value);
     },
   },
   { accessorKey: "fromCurrency", header: "From" },
@@ -109,7 +102,7 @@ const NoConversionHistory = () => {
 const Overview = () => {
   const { data: conversionHistory, isPending } = useGetFxConversionHistory(
     1,
-    5
+    8
   );
   const hasData = conversionHistory?.data?.data?.conversionHistory?.length > 0;
 
@@ -123,11 +116,9 @@ const Overview = () => {
       <div className="flex flex-col 2xl:flex-row gap-6 flex-1 min-h-0">
         <ConversionChart />
 
-        <div className="bg-white rounded-xl shadow p-6 flex-1 min-w-[300px] max-h-[400px] flex flex-col">
-          <div className="mb-4 font-semibold text-lg">
-            Recent Conversion History
-          </div>
-          <div className="flex-1 min-h-0 overflow-auto">
+        <div className="bg-white rounded-xl shadow p-6 flex-1 min-w-[300px] md:max-h-[450px] flex flex-col">
+          <div className="mb-4 font-semibold">Recent Conversion History</div>
+          <div className="flex-1 min-h-0 overflow-auto no-scrollbar">
             {isPending ? (
               <TableSkeleton />
             ) : hasData ? (

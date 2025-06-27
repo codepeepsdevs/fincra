@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useGetFxConversionHistory } from "@/api/user/user.queries";
 import { IConversionHistory } from "@/constants/types";
 import TableSkeleton from "@/components/skeletons/CustomTableSkeleton";
+import { formatDateTime } from "@/utils/parser";
 
 const ConversionHistory = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,15 +35,7 @@ const ConversionHistory = () => {
       header: "Date/Time",
       cell: ({ getValue }) => {
         const value = getValue() as string;
-        const date = new Date(value.replace(" ", "T"));
-        return date.toLocaleString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        });
+        return formatDateTime(value);
       },
     },
     { accessorKey: "fromCurrency", header: "From" },
@@ -98,10 +91,10 @@ const ConversionHistory = () => {
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          Conversion History
-        </h2>
-        <p className="text-gray-600">Track all your currency conversions</p>
+        <h2 className="font-bold mb-1">Conversion History</h2>
+        <p className="text-gray-600 text-sm">
+          Track all your currency conversions
+        </p>
       </div>
 
       <div className="space-y-4">
@@ -109,28 +102,30 @@ const ConversionHistory = () => {
           <TableSkeleton />
         ) : data?.length > 0 ? (
           <>
-            <CustomTable columns={columns} data={data || []} />
+            <div className="overflow-x-auto">
+              <CustomTable columns={columns} data={data || []} />
+            </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between mt-4">
-              <div className="text-sm text-gray-700">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 gap-2 sm:gap-0">
+              <div className="text-sm text-gray-700 text-center sm:text-left">
                 Showing {(currentPage - 1) * pageSize + 1} to{" "}
                 {Math.min(currentPage * pageSize, totalItems)} of{" "}
                 {totalItems || 0} results
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center gap-2">
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.max(1, prev - 1))
                   }
                   disabled={currentPage === 1}
-                  className="cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  className="w-fit sm:w-auto cursor-pointer px-3 py-1 bg-primary text-white rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
 
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-gray-700 text-center">
                   Page {currentPage} of {totalPages}
                 </span>
 
@@ -139,7 +134,7 @@ const ConversionHistory = () => {
                     setCurrentPage((prev) => Math.min(totalPages, prev + 1))
                   }
                   disabled={currentPage === totalPages}
-                  className="cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  className="w-fit sm:w-auto cursor-pointer px-3 py-1  bg-primary text-white rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>

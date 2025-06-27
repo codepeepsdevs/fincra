@@ -15,7 +15,7 @@ const RootProtectionProvider = ({ children }: RootProtectionProviderProps) => {
   const { isLoggedIn, isInitialized, user } = useUserStore();
 
   useEffect(() => {
-    if (isLoggedIn && isInitialized && pathname.startsWith("/login")) {
+    if (isLoggedIn && user && isInitialized && pathname.startsWith("/login")) {
       const redirectPath = "/overview";
       router.replace(redirectPath);
     }

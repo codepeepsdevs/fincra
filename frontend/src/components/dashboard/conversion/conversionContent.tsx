@@ -170,14 +170,11 @@ const ConversionContent = () => {
     });
   };
 
-  console.log("rate data: ", rateData);
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          Convert Currency
-        </h2>
-        <p className="text-gray-600">
+        <h2 className="font-bold mb-1">Convert Currency</h2>
+        <p className="text-gray-600 text-sm">
           Convert your currency to another with real-time exchange rates
         </p>
       </div>
@@ -302,7 +299,7 @@ const ConversionContent = () => {
 
         {/* Conversion Preview */}
         <div className="bg-white rounded-xl shadow-lg p-6 border border-blue-100 transition-all duration-300">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <TbExchange className="text-blue-500" />
             Conversion Preview
           </h3>

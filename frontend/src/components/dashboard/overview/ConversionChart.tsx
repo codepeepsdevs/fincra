@@ -58,9 +58,9 @@ const ConversionChart = () => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow p-6 flex-1 min-w-[300px] max-h-[400px] flex flex-col">
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-semibold text-lg">Conversions Over Time</h3>
+    <div className="bg-white rounded-xl shadow p-6 flex-1 w-full min-w-[300px] max-h-[450px] flex flex-col">
+      <div className="mb-4 flex items-center justify-between flex-wrap gap-2">
+        <h3 className="font-semibold">Conversions Over Time</h3>
 
         <div className="flex items-center gap-3">
           {/* Currency Selection */}
@@ -85,7 +85,7 @@ const ConversionChart = () => {
                       currencyColors[currency as keyof typeof currencyColors],
                   }}
                 />
-                <span className="text-sm">{currency}</span>
+                <span className="text-xs md:text-sm">{currency}</span>
               </label>
             ))}
           </div>
@@ -93,7 +93,7 @@ const ConversionChart = () => {
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-1 border border-gray-300 rounded-md text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {periodOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -104,8 +104,15 @@ const ConversionChart = () => {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0">
-        <Line data={chartData} options={chartOptions} height={300} />
+      <div className="flex-1 min-h-[250px] sm:min-h-[300px]">
+        <Line
+          data={chartData}
+          options={{
+            ...chartOptions,
+            responsive: true,
+            maintainAspectRatio: false,
+          }}
+        />
       </div>
     </div>
   );

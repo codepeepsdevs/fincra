@@ -75,6 +75,7 @@ const useUserStore = create(
       logout: () => {
         Cookies.remove("accessToken");
         set({ user: null, isLoggedIn: false, isInitialized: true });
+        set({ accounts: [] });
       },
 
       setAccounts: (accounts: UserAccount[]) => set({ accounts }),

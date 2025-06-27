@@ -83,7 +83,7 @@ const MyBalances = () => {
                   key={account.id}
                   className="flex items-center justify-center gap-4 p-6 rounded-xl border border-[#F4F4F4] bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white transition-all duration-300 shadow-sm hover:shadow-md"
                 >
-                  <div className="w-full flex flex-col gap-2">
+                  <div className="w-full flex flex-col md:gap-2 gap-0">
                     <div className="flex items-center justify-between">
                       <p className="text-sm text-gray-500 font-medium">
                         Available Balance
@@ -93,7 +93,7 @@ const MyBalances = () => {
                       </div>
                     </div>
 
-                    <h1 className="text-2xl font-bold text-gray-800">
+                    <h1 className="text-xl md:text-2xl font-bold text-gray-800">
                       {`${
                         getCurrencyIcon(account.currency)?.symbol
                       }${account.balance?.toLocaleString()}`}

@@ -63,7 +63,7 @@ const Login = () => {
     setUser(user);
     setIsLoggedIn(true);
     toast.success("Login successful");
-    router.push("/dashboard");
+    router.push("/overview");
   };
 
   const { mutate: login, isPending: loginPending } = useLogin(
@@ -143,7 +143,7 @@ const Login = () => {
                 disabled={!isValid}
                 type="submit"
                 className={classNames(
-                  "mt-2 text-white py-3 md:py-4 text-base md:text-lg",
+                  "mt-2 text-white py-2 text-base",
                   !isValid && "opacity-70 cursor-not-allowed"
                 )}
               >
@@ -152,7 +152,7 @@ const Login = () => {
 
               <a
                 onClick={() => router.push("/signup")}
-                className="text-primary font-semibold cursor-pointer text-base md:text-lg mt-3 md:mt-5"
+                className="text-primary font-semibold cursor-pointer text-base"
               >
                 Create Account
               </a>

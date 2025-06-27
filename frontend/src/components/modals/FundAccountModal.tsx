@@ -102,7 +102,9 @@ const FundAccountModal: React.FC<FundAccountModalProps> = ({
     <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl w-full max-w-md p-6 relative shadow-2xl border border-gray-100">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">Fund Account</h2>
+          <h2 className="text-base md:text-xl font-semibold text-gray-800">
+            Fund Account
+          </h2>
           <button
             onClick={handleClose}
             disabled={fundAccountPending}
@@ -112,16 +114,16 @@ const FundAccountModal: React.FC<FundAccountModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="md:space-y-6 space-y-4">
           <div className="space-y-2">
-            <label className="font-medium text-gray-700">
+            <label className="text-sm md:text-base font-medium text-gray-700">
               Select Account <span className="text-red-500">*</span>
             </label>
             <select
               value={selectedAccount}
               onChange={(e) => setSelectedAccount(e.target.value)}
               disabled={fundAccountPending}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7535FD] focus:ring-1 focus:ring-[#7535FD] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full text-sm md:text-base p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7535FD] focus:ring-1 focus:ring-[#7535FD] disabled:opacity-50 disabled:cursor-not-allowed"
               required
             >
               <option value="">Choose an account</option>
@@ -138,7 +140,7 @@ const FundAccountModal: React.FC<FundAccountModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <label className="font-medium text-gray-700">
+            <label className="text-sm md:text-base font-medium text-gray-700">
               Amount <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -155,7 +157,7 @@ const FundAccountModal: React.FC<FundAccountModalProps> = ({
                 placeholder="Enter amount"
                 min="0"
                 step="0.01"
-                className={`w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7535FD] focus:ring-1 focus:ring-[#7535FD] disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`w-full text-sm md:text-base p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#7535FD] focus:ring-1 focus:ring-[#7535FD] disabled:opacity-50 disabled:cursor-not-allowed ${
                   selectedAccount ? "pl-12" : ""
                 }`}
                 required
@@ -187,7 +189,7 @@ const FundAccountModal: React.FC<FundAccountModalProps> = ({
               type="submit"
               isLoading={fundAccountPending}
               disabled={!selectedAccount || !amount}
-              className="w-full bg-[#7535FD] text-white hover:bg-[#6a2ff0]"
+              className="w-full text-sm md:text-base bg-[#7535FD] text-white hover:bg-[#6a2ff0]"
             >
               Fund Account
             </Button>

@@ -174,7 +174,7 @@ const SignUp = () => {
                 isLoading={registerPending}
                 disabled={!isValid}
                 className={classNames(
-                  "mt-2 text-white py-3 md:py-4 text-base md:text-lg",
+                  "mt-2 text-white py-2 text-base",
                   !isValid && "opacity-70 cursor-not-allowed"
                 )}
               >
@@ -183,7 +183,7 @@ const SignUp = () => {
 
               <a
                 onClick={() => router.push("/login")}
-                className="text-primary font-semibold cursor-pointer text-base md:text-lg mt-3 md:mt-5"
+                className="text-primary font-semibold cursor-pointer text-base"
               >
                 Login To Existing Account
               </a>

@@ -12,7 +12,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="text-left flex flex-col gap-1">
-        <label className="font-medium text-sm md:text-base">
+        <label className="font-medium text-sm">
           {label} <span className="text-red-500">*</span>
         </label>
         <div className="relative">

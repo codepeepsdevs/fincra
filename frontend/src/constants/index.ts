@@ -1,3 +1,4 @@
+import { ChartOptions, ScriptableChartContext } from "chart.js";
 import { IoBarChart } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import { TbExchange } from "react-icons/tb";
@@ -38,17 +39,44 @@ export const currencyColors = {
   NGN: "#F59E0B",
 };
 
-export const chartOptions = {
+export const chartOptions: ChartOptions<any> = {
   responsive: true,
   maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 10,
+      right: 10,
+      bottom: 10,
+      left: 10,
+    },
+  },
   plugins: {
     legend: {
       display: true,
       position: "top" as const,
+      labels: {
+        font: (ctx: ScriptableChartContext) => {
+          const width = ctx.chart.width;
+          return {
+            size: width < 500 ? 10 : 12,
+            weight: "bold",
+          };
+        },
+        boxWidth: 16,
+        boxHeight: 8,
+        padding: 12,
+      },
     },
     tooltip: {
-      mode: "index" as const,
+      mode: "index",
       intersect: false,
+      bodyFont: {
+        size: 12,
+      },
+      titleFont: {
+        size: 13,
+      },
+      padding: 10,
     },
   },
   scales: {
@@ -57,6 +85,24 @@ export const chartOptions = {
       title: {
         display: true,
         text: "Date",
+        font: (ctx: ScriptableChartContext) => {
+          const width = ctx.chart.width;
+          return {
+            size: width < 500 ? 11 : 15,
+            weight: "bold",
+          };
+        },
+      },
+      ticks: {
+        font: (ctx: ScriptableChartContext) => {
+          const width = ctx.chart.width;
+          return {
+            size: width < 500 ? 10 : 11,
+          };
+        },
+        maxRotation: 0,
+        autoSkip: true,
+        padding: 4,
       },
     },
     y: {
@@ -64,6 +110,23 @@ export const chartOptions = {
       title: {
         display: true,
         text: "Conversion Amount",
+        font: (ctx: ScriptableChartContext) => {
+          const width = ctx.chart.width;
+          return {
+            size: width < 500 ? 11 : 15,
+            weight: "bold",
+          };
+        },
+      },
+      ticks: {
+        font: (ctx: any) => {
+          const width = ctx.chart.width;
+          return {
+            size: width < 500 ? 10 : 11,
+            weight: "bold",
+          };
+        },
+        padding: 4,
       },
       beginAtZero: true,
     },
