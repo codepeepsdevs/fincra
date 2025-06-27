@@ -26,7 +26,6 @@ const ConversionChart = () => {
     }
   }, [_data]);
 
-  console.log("chartDataBackend", chartDataBackend);
   // Prepare chart data
   const chartData = useMemo(() => {
     const datasets = selectedCurrencies.map((currency) => ({

@@ -4,7 +4,7 @@ import React from "react";
 
 const Conversion = () => {
   return (
-    <div className="flex flex-col gap-6 h-full w-full mx-auto p-6">
+    <div className="flex flex-col gap-6 h-full w-full mx-auto p-0 md:p-6">
       <ConversionContent />
 
       <ConversionHistory />

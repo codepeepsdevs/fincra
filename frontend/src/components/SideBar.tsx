@@ -58,7 +58,10 @@ const SideBar = () => {
               return (
                 <div key={item.id}>
                   <div
-                    onClick={() => router.push(item.path)}
+                    onClick={() => {
+                      router.push(item.path);
+                      toggleSidebar();
+                    }}
                     className={classNames(
                       "flex items-center gap-3 px-3 py-2 cursor-pointer rounded-md transition-colors duration-200",
                       {

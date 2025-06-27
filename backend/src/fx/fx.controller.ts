@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import { FxService } from './fx.service';
 import { ConvertDto } from './dtos/convert.dto';
-import { UserSerializer } from 'src/common/serializers/user.serializer';
+import { UserSerializer } from '@/common/serializers/user.serializer';
 
 @Controller('fx')
 export class FxController {

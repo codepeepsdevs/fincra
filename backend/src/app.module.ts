@@ -12,8 +12,8 @@ import { FxModule } from './fx/fx.module';
 import { PrismaModule } from './prisma/prisma.module';
 import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
-import { ApiKeyMiddleware } from './common/middlewares/ApiKeyMiddleware';
-import { JwtMiddleware } from './common/middlewares/JwtMiddleware';
+import { ApiKeyMiddleware } from '@/common/middlewares/ApiKeyMiddleware';
+import { JwtMiddleware } from '@/common/middlewares/JwtMiddleware';
 
 @Module({
   imports: [

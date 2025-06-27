@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useConvertCurrency, useGetCoversionRate } from "@/api/fx/fx.queries";
 import { AxiosError, AxiosResponse } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetUserAccounts } from "@/api/user/user.queries";
 
 interface ConversionFormData {
   fromCurrency: string;
@@ -18,7 +19,7 @@ interface ConversionFormData {
 }
 
 const ConversionContent = () => {
-  const { accounts } = useUserStore();
+  const { accounts, setAccounts } = useUserStore();
   const [formData, setFormData] = useState<ConversionFormData>({
     fromCurrency: "",
     toCurrency: "",
@@ -43,6 +44,15 @@ const ConversionContent = () => {
     formData.toCurrency,
     parseFloat(formData.amount)
   );
+
+  const { data: userAccounts } = useGetUserAccounts();
+
+  useEffect(() => {
+    if (userAccounts) {
+      setAccounts(userAccounts?.data?.data);
+    }
+  }, [userAccounts]);
+
   const queryClient = useQueryClient();
 
   const { mutate: convertCurrency, isPending: isConverting } =
@@ -197,7 +207,7 @@ const ConversionContent = () => {
                   ))}
                 </select>
                 {formData.fromCurrency && (
-                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <div className="absolute right-5 top-1/2 transform -translate-y-1/2">
                     {getCurrencyIcon(formData.fromCurrency).icon}
                   </div>
                 )}
@@ -221,10 +231,10 @@ const ConversionContent = () => {
                   value={formData.amount}
                   onChange={(e) => handleInputChange("amount", e.target.value)}
                   placeholder="Enter amount"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 {formData.fromCurrency && (
-                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                  <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-500">
                     {getCurrencyIcon(formData.fromCurrency).symbol}
                   </div>
                 )}

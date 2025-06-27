@@ -104,7 +104,7 @@ const SignUp = () => {
             <h2 className="font-semibold text-2xl">Create your Account</h2>
 
             <form
-              className="w-full flex flex-col gap-6"
+              className="w-full flex flex-col gap-4 md:gap-6"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="text-left flex flex-col gap-1">
@@ -174,7 +174,7 @@ const SignUp = () => {
                 isLoading={registerPending}
                 disabled={!isValid}
                 className={classNames(
-                  "mt-2 text-white py-4 text-lg",
+                  "mt-2 text-white py-3 md:py-4 text-base md:text-lg",
                   !isValid && "opacity-70 cursor-not-allowed"
                 )}
               >
@@ -183,7 +183,7 @@ const SignUp = () => {
 
               <a
                 onClick={() => router.push("/login")}
-                className="text-primary font-semibold cursor-pointer text-lg mt-5"
+                className="text-primary font-semibold cursor-pointer text-base md:text-lg mt-3 md:mt-5"
               >
                 Login To Existing Account
               </a>

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserSerializer } from 'src/common/serializers/user.serializer';
+import { UserSerializer } from '@/common/serializers/user.serializer';
 import { FundAccountDto } from './dtos/fundAccount.dto';
 
 @Controller('user')

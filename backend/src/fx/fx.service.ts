@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
 import { ConvertDto } from './dtos/convert.dto';
-import { UserSerializer } from 'src/common/serializers/user.serializer';
+import { UserSerializer } from '@/common/serializers/user.serializer';
 
 @Injectable()
 export class FxService {
@@ -33,9 +33,14 @@ export class FxService {
 
       const data = response.data;
 
-      if (!data.success) throw new Error('Failed to get conversion rate');
+      if (!data.success)
+        throw new InternalServerErrorException('Failed to get conversion rate');
 
       const rate = data.quotes[`${from}${to}`];
+
+      if (!rate)
+        throw new InternalServerErrorException('Failed to get conversion rate');
+
       const convertedAmount = rate * amount;
 
       return {

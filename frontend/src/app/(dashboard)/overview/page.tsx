@@ -114,7 +114,7 @@ const Overview = () => {
   const hasData = conversionHistory?.data?.data?.conversionHistory?.length > 0;
 
   return (
-    <div className="flex flex-col gap-6 h-full w-full mx-auto p-6">
+    <div className="flex flex-col gap-6 h-full w-full mx-auto p-0 md:p-6">
       <Header />
 
       <MyBalances />

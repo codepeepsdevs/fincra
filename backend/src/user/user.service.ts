@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { Currency } from '@prisma/client';
-import { UserSerializer } from 'src/common/serializers/user.serializer';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { UserSerializer } from '@/common/serializers/user.serializer';
+import { PrismaService } from '@/prisma/prisma.service';
 import { FundAccountDto } from './dtos/fundAccount.dto';
 import * as moment from 'moment';
 
@@ -16,6 +16,8 @@ export class UserService {
         accounts: true,
       },
     });
+
+    if (!user) throw new NotFoundException('User not found');
 
     return {
       message: 'User fetched successfully',

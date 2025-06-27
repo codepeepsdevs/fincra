@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { SignUpDto } from './dtos/signup.dto';
 import { LoginDto } from './dtos/login.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '@/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { UserCreatedEvent } from 'src/common/events/userCreatedEvent';
-import { UserSerializer } from 'src/common/serializers/user.serializer';
+import { UserCreatedEvent } from '@/common/events/userCreatedEvent';
+import { UserSerializer } from '@/common/serializers/user.serializer';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

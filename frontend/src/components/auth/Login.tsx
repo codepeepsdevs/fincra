@@ -101,10 +101,10 @@ const Login = () => {
           />
 
           <div className="w-full bg-white text-black rounded-2xl text-center flex flex-col gap-6 p-8 2xl:p-10 pt-12">
-            <h2 className="font-semibold text-2xl">Login</h2>
+            <h2 className="font-semibold text-xl md:text-2xl">Login</h2>
 
             <form
-              className="w-full flex flex-col gap-6"
+              className="w-full flex flex-col gap-4 md:gap-6"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="text-left flex flex-col gap-1">
@@ -143,7 +143,7 @@ const Login = () => {
                 disabled={!isValid}
                 type="submit"
                 className={classNames(
-                  "mt-2 text-white py-4 text-lg",
+                  "mt-2 text-white py-3 md:py-4 text-base md:text-lg",
                   !isValid && "opacity-70 cursor-not-allowed"
                 )}
               >
@@ -152,7 +152,7 @@ const Login = () => {
 
               <a
                 onClick={() => router.push("/signup")}
-                className="text-primary font-semibold cursor-pointer text-lg mt-5"
+                className="text-primary font-semibold cursor-pointer text-base md:text-lg mt-3 md:mt-5"
               >
                 Create Account
               </a>
