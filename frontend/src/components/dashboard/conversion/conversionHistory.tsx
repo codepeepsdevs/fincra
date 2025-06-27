@@ -114,7 +114,7 @@ const ConversionHistory = () => {
                 {totalItems || 0} results
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-2">
+              <div className="flex flex-row justify-center items-center gap-2">
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.max(1, prev - 1))

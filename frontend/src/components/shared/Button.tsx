@@ -39,7 +39,7 @@ const CustomButton = ({
       {...props}
     >
       {isLoading ? (
-        <SpinnerLoader width={25} height={25} color="#000" />
+        <SpinnerLoader width={25} height={25} color="#fff" />
       ) : (
         children
       )}
