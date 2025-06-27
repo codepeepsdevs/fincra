@@ -73,6 +73,36 @@ This project is a fullstack application built as part of the Fincra FullStack En
 3. **Set up environment variables:**
    - Copy `.env.example` to `.env` and fill in the required values.
 
+### Environment Variables
+
+### Backend (.env)
+
+```env
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Database
+DATABASE_URL=sqlite:./dev.db
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
+JWT_EXPIRES_IN=24h
+
+# API Configuration
+API_KEY=your-api-key-here
+```
+
+### Frontend (.env.local)
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_API_KEY=your-api-key-here
+```
+
+**Note:** Replace the placeholder values with your actual configuration. Never commit sensitive values to version control.
+
 ---
 
 ## Run Instructions
