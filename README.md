@@ -87,18 +87,22 @@ DATABASE_URL=sqlite:./dev.db
 
 # JWT Configuration
 JWT_SECRET=your-super-secret-jwt-key-here
-JWT_EXPIRES_IN=24h
+JWT_EXPIRES_IN=2h
 
 # API Configuration
 API_KEY=your-api-key-here
+
+# Others
+EXCHANGE_RATE_API_KEY=your-api-key-here
+EXCHANGE_BASE_URL=https://api.exchangerate.host
 ```
 
 ### Frontend (.env.local)
 
 ```env
 # API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:3000
-NEXT_PUBLIC_API_KEY=your-api-key-here
+NEXT_PUBLIC_BACKEND_API=http://localhost:3000
+NEXT_PUBLIC_BACKEND_API_KEY=your-api-key-here
 ```
 
 **Note:** Replace the placeholder values with your actual configuration. Never commit sensitive values to version control.
