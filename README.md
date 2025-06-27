@@ -155,9 +155,20 @@ The frontend will start on [http://localhost:3000](http://localhost:3000) (or yo
 
 ---
 
+## Crendential
+
+email: abrahamosazee3@gmail.com
+password: Omorisiagbon123
+
+can also create new crendentials
+
+---
+
 ## Docs
 
 - [Backend postman doc](https://documenter.getpostman.com/view/30702099/2sB2xFeneu)
+
+---
 
 ## License
 
