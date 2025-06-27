@@ -6,7 +6,7 @@ type InputProps = {
 } & ComponentProps<"input">;
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, className, type, ...props }, ref) => {
+  ({ label, type, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === "password";
 

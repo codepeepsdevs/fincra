@@ -20,7 +20,7 @@ const MyBalances = () => {
     if (userAccounts) {
       setAccounts(userAccounts?.data?.data);
     }
-  }, [userAccounts]);
+  }, [userAccounts, setAccounts]);
 
   const handleRefreshBalance = () => {
     setIsRefreshing(true);

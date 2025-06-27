@@ -51,7 +51,7 @@ const ConversionContent = () => {
     if (userAccounts) {
       setAccounts(userAccounts?.data?.data);
     }
-  }, [userAccounts]);
+  }, [userAccounts, setAccounts]);
 
   const queryClient = useQueryClient();
 
@@ -136,7 +136,7 @@ const ConversionContent = () => {
       setConversionRate(null);
       setConvertedAmount(null);
     }
-  }, [formData.fromCurrency, formData.toCurrency]);
+  }, [formData.fromCurrency, formData.toCurrency, fetchConversionRate]);
 
   const handleCurrencySwap = () => {
     setFormData((prev) => ({
@@ -329,7 +329,7 @@ const ConversionContent = () => {
                 </svg>
               </div>
               <div className="text-base font-medium text-gray-800 mb-3">
-                Couldn't fetch exchange rate
+                Couldn&apos;t fetch exchange rate
               </div>
               <Button
                 onClick={() => fetchConversionRate()}
@@ -404,7 +404,7 @@ const ConversionContent = () => {
                 <div className="bg-green-50 rounded-lg p-4 border border-green-100 flex flex-col gap-2 shadow-sm">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600 font-medium">
-                      You'll Receive
+                      You&apos;ll Receive
                     </span>
                     <span className="text-lg font-bold text-green-700 flex items-center gap-1">
                       {getCurrencyIcon(formData.toCurrency).icon}

@@ -19,7 +19,7 @@ const RootProtectionProvider = ({ children }: RootProtectionProviderProps) => {
       const redirectPath = "/overview";
       router.replace(redirectPath);
     }
-  }, [isLoggedIn, isInitialized, pathname, user]);
+  }, [isLoggedIn, isInitialized, pathname, user, router]);
 
   if (!isInitialized) {
     return (

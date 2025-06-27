@@ -10,7 +10,7 @@ import {
 import classNames from "classnames";
 
 interface CustomTableProps<T> {
-  columns: ColumnDef<T, any>[];
+  columns: ColumnDef<T, unknown>[];
   data: T[];
   className?: string;
 }

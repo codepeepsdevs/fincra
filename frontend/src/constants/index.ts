@@ -39,6 +39,7 @@ export const currencyColors = {
   NGN: "#F59E0B",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const chartOptions: ChartOptions<any> = {
   responsive: true,
   maintainAspectRatio: false,
@@ -119,7 +120,7 @@ export const chartOptions: ChartOptions<any> = {
         },
       },
       ticks: {
-        font: (ctx: any) => {
+        font: (ctx: ScriptableChartContext) => {
           const width = ctx.chart.width;
           return {
             size: width < 500 ? 10 : 11,

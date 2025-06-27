@@ -15,7 +15,7 @@ const ConversionChart = () => {
     "GBP",
     "NGN",
   ]);
-  const [chartDataBackend, setChartDataBackend] = useState<any>([]);
+  const [chartDataBackend, setChartDataBackend] = useState([]);
 
   const { data: _data, isPending } =
     useGetFxConversionChartData(selectedPeriod);
@@ -31,7 +31,8 @@ const ConversionChart = () => {
     const datasets = selectedCurrencies.map((currency) => ({
       label: `${currency} Conversions`,
       data: chartDataBackend?.map(
-        (item: any) => item[currency as keyof ConversionData] as number
+        (item: ConversionData) =>
+          item[currency as keyof ConversionData] as number
       ),
       borderColor: currencyColors[currency as keyof typeof currencyColors],
       backgroundColor: `${
@@ -42,7 +43,7 @@ const ConversionChart = () => {
     }));
 
     return {
-      labels: chartDataBackend?.map((item: any) => {
+      labels: chartDataBackend?.map((item: ConversionData) => {
         const date = new Date(item.date);
         return date.toLocaleDateString("en-US", {
           month: "short",
